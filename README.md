@@ -1,64 +1,64 @@
-# Live Speech to Text System
+# Live Speech to Text
 
-A real-time speech recognition system that captures audio from your microphone, transcribes speech to text, performs grammar correction, and simulates typing the output.
+A real-time, offline-capable speech-to-text application that transcribes audio from your microphone and types it out for you.
 
-## Features
+## Key Features
 
-- Real-time speech recognition from microphone input
-- Grammar and spell-check correction (when Java 17+ is available)
-- Keyboard typing simulation
-- Pause/Resume functionality with Ctrl+Shift+Space
-- Noise filtering to avoid short fragments
-- Completely offline operation (after initial model download)
-- Support for multiple languages (depending on the selected Whisper model)
+-   **Real-time Transcription:** Captures microphone audio and converts it to text instantly.
+-   **Offline First:** Works entirely offline after the initial model download.
+-   **Grammar Correction:** Automatically corrects grammar and spelling (requires Java 17+).
+-   **Keyboard Simulation:** Types the transcribed text into any active window.
+-   **Pause/Resume:** Use `Ctrl+Shift+Space` to toggle transcription on and off.
+-   **Noise Filtering:** Ignores short audio fragments and background noise.
+-   **Multi-Language:** Supports various languages based on the chosen Whisper model.
 
-## Requirements
+## Setup
 
-- Python 3.7+
-- Linux, Windows, or macOS
-- Microphone access
-- Java 17+ (optional, for grammar correction)
+1.  **Prerequisites:**
+    *   Python 3.7+
+    *   Linux, Windows, or macOS
+    *   A connected microphone
+    *   Java 17+ (Optional, for grammar correction)
 
-## Installation
+2.  **Installation:**
+    Open your terminal and run:
+    ```bash
+    pip install faster-whisper language-tool-python sounddevice numpy pynput
+    ```
 
-1. Install required packages:
-```bash
-pip install faster-whisper language-tool-python sounddevice numpy pynput
-```
+## How to Use
 
-2. Run the application:
-```bash
-python live_speech_to_text.py
-```
+1.  **Run the application:**
+    ```bash
+    python live_speech_to_text.py
+    ```
+    The first time you run it, the required speech model will be downloaded.
 
-## Usage
+2.  **Start Speaking:** Once running, the application will listen for your voice and start typing what it hears.
 
-- Speak normally into your microphone after starting the application
-- The transcribed text will be automatically typed
-- Press `Ctrl+Shift+Space` to pause/resume the speech recognition
-- Press `Ctrl+C` to exit the application
+3.  **Controls:**
+    *   `Ctrl+Shift+Space`: Pause or resume the transcription.
+    *   `Ctrl+C`: Stop the application.
 
-## Notes
+## Configuration
 
-- The first time you run the application, it will download the Whisper model files to your local machine
-- After the initial download, the system works completely offline
-- For non-English languages, the grammar correction may be limited
-- If you don't have Java 17+, grammar correction will be disabled automatically
+### Model Size
 
-## Customization
+For a different balance of speed and accuracy, you can change the model. Edit `live_speech_to_text.py` and change `'small'` to one of the following:
 
-- To disable grammar correction: `python live_speech_to_text.py false`
-- To change the model size, edit the model initialization in the code to use 'tiny', 'base', 'medium', or 'large' instead of 'small'
+-   `'tiny'` or `'base'`: Faster, less accurate.
+-   `'medium'` or `'large'`: Slower, more accurate.
 
-## Performance
+### Grammar Correction
 
-- The 'small' model provides a good balance between speed and accuracy
-- For better accuracy, use 'medium' or 'large' models (but they are slower)
-- For faster performance on older computers, use 'tiny' or 'base' models
+-   **Disable:** To run without grammar correction, use the following command:
+    ```bash
+    python live_speech_to_text.py false
+    ```
+-   **Note:** Grammar correction is automatically disabled if Java 17+ is not found.
 
 ## Troubleshooting
 
-- If you experience delays, try reducing background noise
-- The system now uses a 2-second processing window for more responsiveness
-- Short fragments and repetitions are automatically filtered out
-- If the system is too sensitive to background noise, the silence threshold can be adjusted in the code
+-   **Delays or Lag:** Try to minimize background noise or switch to a smaller model for faster performance.
+-   **Too Sensitive:** If the app picks up too much background noise, the `SILENCE_THRESHOLD` in the code can be adjusted.
+-   **Repetitions:** The system is designed to filter out short, repetitive fragments.
