@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=WIS
+Comment=Whisper Input System - Live Speech to Text
+Exec=/home/yousef/wis/launch_wis.sh
+Icon=audio-input-microphone
+Terminal=false
+Categories=Audio;Utility;Accessibility;
+Keywords=speech;transcription;whisper;voice;dictation;
+StartupNotify=false
+X-GNOME-Autostart-enabled=false
+NoDisplay=false
+DBusActivatable=false
+Actions=
