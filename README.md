@@ -1,64 +1,66 @@
-# Live Speech to Text
+# WIS: Whisper Input System for Linux
 
-A real-time, offline-capable speech-to-text application that transcribes audio from your microphone and types it out for you.
+This guide provides step-by-step instructions to install and use WIS on a Linux system.
 
-## Key Features
+## Quick Start: How to Use
 
--   **Real-time Transcription:** Captures microphone audio and converts it to text instantly.
--   **Offline First:** Works entirely offline after the initial model download.
--   **Grammar Correction:** Automatically corrects grammar and spelling (requires Java 17+).
--   **Keyboard Simulation:** Types the transcribed text into any active window.
--   **Pause/Resume:** Use `Ctrl+Shift+Space` to toggle transcription on and off.
--   **Noise Filtering:** Ignores short audio fragments and background noise.
--   **Multi-Language:** Supports various languages based on the chosen Whisper model.
+Follow these steps to get started.
 
-## Setup
+### Step 1: Run the Installer (First Time Only)
 
-1.  **Prerequisites:**
-    *   Python 3.7+
-    *   Linux, Windows, or macOS
-    *   A connected microphone
-    *   Java 17+ (Optional, for grammar correction)
+First, you must run the installer script. This will automatically check for dependencies, install required software, and create an application shortcut.
 
-2.  **Installation:**
-    Open your terminal and run:
+Open your terminal, navigate to the project folder, and run:
+
+```bash
+bash install.sh
+```
+
+**Note:** You only need to do this once.
+
+### Step 2: Launch the Application
+
+After installation, you can start the application in two ways:
+
+*   **(Recommended) Use the Applications Menu:**
+    1.  Open your system's application menu.
+    2.  Search for "**WIS**" and click to launch it.
+
+*   **(Alternative) Use the Terminal:**
+    If you prefer the command line, run the following command:
     ```bash
-    pip install faster-whisper language-tool-python sounddevice numpy pynput
+    python3 /wis/speech_indicator.py
     ```
 
-## How to Use
+This will start the WIS tray icon and begin speech recognition automatically.
 
-1.  **Run the application:**
-    ```bash
-    python live_speech_to_text.py
-    ```
-    The first time you run it, the required speech model will be downloaded.
+### Step 3: Control Transcription
 
-2.  **Start Speaking:** Once running, the application will listen for your voice and start typing what it hears.
+A microphone icon will appear in your system tray (usually at the top or bottom of your screen). This icon shows the status of the application.
 
-3.  **Controls:**
-    *   `Ctrl+Shift+Space`: Pause or resume the transcription.
-    *   `Ctrl+C`: Stop the application.
+*   **Right-click the icon** to open the control menu.
+*   From the menu, you can **Start**, **Stop**, or **Quit** the application.
 
-## Configuration
+---
 
-### Model Size
+## Advanced Configuration
 
-For a different balance of speed and accuracy, you can change the model. Edit `live_speech_to_text.py` and change `'small'` to one of the following:
+### Changing the Model Size
 
--   `'tiny'` or `'base'`: Faster, less accurate.
--   `'medium'` or `'large'`: Slower, more accurate.
+For a different balance of speed and accuracy, you can change the Whisper model.
+
+1.  Open the file `live_speech_to_text.py`.
+2.  Find the line `model = WhisperModel('small', ...)`
+3.  Change `'small'` to one of the following:
+    *   `'tiny'` or `'base'`: Faster, less accurate.
+    *   `'medium'` or `'large'`: Slower, more accurate.
 
 ### Grammar Correction
 
--   **Disable:** To run without grammar correction, use the following command:
-    ```bash
-    python live_speech_to_text.py false
-    ```
--   **Note:** Grammar correction is automatically disabled if Java 17+ is not found.
+-   Grammar correction requires Java 17+ and is enabled by default if Java is found.
+-   If you wish to run the application without grammar correction, you can modify the `speech_indicator.py` file to add the `false` argument to the command that launches `live_speech_to_text.py`.
 
 ## Troubleshooting
 
--   **Delays or Lag:** Try to minimize background noise or switch to a smaller model for faster performance.
--   **Too Sensitive:** If the app picks up too much background noise, the `SILENCE_THRESHOLD` in the code can be adjusted.
--   **Repetitions:** The system is designed to filter out short, repetitive fragments.
+-   **Delays or Lag:** Try to minimize background noise or switch to a smaller model (like `'base'` or `'tiny'`) for faster performance.
+-   **Too Sensitive:** If the app picks up too much background noise, the `SILENCE_THRESHOLD` in the `live_speech_to_text.py` file can be adjusted.
